@@ -278,6 +278,12 @@ class Message extends AbstractClient
         return $this;
     }
 
+    /**
+     * Sends the payload as a message to the defined User ID or Smooch ID
+     *
+     * @return string json containing answer from Smooch Rest API
+     * @throws \Exception
+     */
     public function send()
     {
         if (empty($this->getUserId())) {
