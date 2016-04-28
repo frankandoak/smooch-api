@@ -1,0 +1,13 @@
+{
+    "name": "frankandoak/smooch",
+    "description": "Smooch PHP SDK",
+    "require": {
+        "firebase/php-jwt": "^3.0",
+        "guzzlehttp/guzzle": "6.1.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Smooch\\": "src/"
+        }
+    }
+}
