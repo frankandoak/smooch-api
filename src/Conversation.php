@@ -28,12 +28,12 @@ class Conversation
      */
     public function add(Model\Message $message)
     {
-        $json = $this->client->request(
+        $response = $this->client->request(
             '/appusers/' . $this->appUser->id . '/conversation/messages',
             'POST',
             $message->getPayload()
         );
 
-        return new Model\Message($json['message']);
+        return new Model\Message($response['message']);
     }
 }

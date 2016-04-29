@@ -57,43 +57,44 @@ class Client
      * @param string $url URL endpoint of given request
      * @param string $method (POST|GET|DELETE|PUT)
      * @param array|null $data payload to be sent to endpoint
-     * @return string json returned by Smooch
+     * @return array
      */
     public function request($url, $method, $data = null)
     {
-        $header = array(
+        $header = [
             "alg" => $this->alg,
             "typ" => $this->typ,
             "kid" => $this->kid
-        );
+        ];
 
         $bearer = \Firebase\JWT\JWT::encode(
-            array('scope' => $this->scope),
+            ['scope' => $this->scope],
             $this->secret,
             $this->alg,
             $this->kid,
             $header
         );
 
-        $config = array(
-            'request.options' => array(
-                'headers' => array(
-                        'Authorization' => 'Bearer ' . $bearer,
-                        'Content-Type' => 'application/json'
-                    ) + $header
-            )
-        );
+        $config = [
+            'headers' => [
+                    'Authorization' => 'Bearer ' . $bearer,
+                    'Content-Type' => 'application/json'
+                ] + $header
+        ];
 
         if (($method == 'POST' || $method == 'PUT') && !empty($data)) {
             $json = json_encode($data);
-            $config['request.options']['headers']['Content-Length'] = strlen($json);
-            $config['request.options']['body'] = $json;
+            $config['headers']['Content-Length'] = strlen($json);
+            $config['body'] = $json;
         }
 
-        $client = new \Guzzle\Http\Client($this->baseUri . $url, $config);
-        $request = $client->{$method}();
-        $response = $request->send();
+        $guzzle = new \GuzzleHttp\Client();
+        $response = $guzzle->request(
+            $method,
+            $this->baseUri . $url,
+            $config
+        );
 
-        return $response->json();
+        return json_decode($response->getBody(), true);
     }
 }

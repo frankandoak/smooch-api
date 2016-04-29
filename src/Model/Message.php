@@ -5,7 +5,7 @@ namespace Smooch\Model;
 class Message
 {
     /** @var array */
-    private $payload = array();
+    private $payload = [];
 
     /**
      * @param array $payload
@@ -269,10 +269,10 @@ class Message
      */
     public function addAction($text, $type, array $options)
     {
-        $this->payload['actions'][] = array(
+        $this->payload['actions'][] = [
                 'text' => $text,
                 'type' => $type
-            ) + $options;
+            ] + $options;
         return $this;
     }
 
