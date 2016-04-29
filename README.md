@@ -15,7 +15,6 @@ composer require frankandoak/smooch-api
 Example
 -------
 ```php
-<?php
        $message = new Smooch\Model\Message([
            'text' => 'MESSAGE_CONTENT',
            'role' => 'appMaker'
@@ -28,5 +27,4 @@ Example
            ->getAppUser('USER_ID_OR_SMOOCH_ID')
            ->conversation
            ->add($message);
-?>
 ```
