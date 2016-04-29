@@ -13,7 +13,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
             ]);
 
             $smoochClient = new \Smooch\Client();
-            $smoochClient->setCredentials("FAKE_SECRET", "FAKE_KEY_ID");
+            $smoochClient->setCredentials('FAKE_SECRET', 'FAKE_KEY_ID');
 
             $smoochClient
                 ->getAppUser('USER_ID_OR_SMOOCH_ID')
@@ -47,7 +47,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
             'text' => 'MESSAGE_CONTENT',
             'role' => 'appMaker'
         ]);
-        $mock->setCredentials("SECRET", "KEY_ID");
+        $mock->setCredentials('SECRET', 'KEY_ID');
 
         $response = $mock
             ->getAppUser('USER_ID_OR_SMOOCH_ID')

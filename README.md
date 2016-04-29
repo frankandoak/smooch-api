@@ -21,7 +21,7 @@ Example
        ]);
 
        $smoochClient = new Smooch\Client();
-       $smoochClient->setCredentials("SECRET", "KEY_ID");
+       $smoochClient->setCredentials('SECRET', 'KEY_ID');
 
        $smoochClient
            ->getAppUser('USER_ID_OR_SMOOCH_ID')

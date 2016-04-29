@@ -62,9 +62,9 @@ class Client
     public function request($url, $method, $data = null)
     {
         $header = [
-            "alg" => $this->alg,
-            "typ" => $this->typ,
-            "kid" => $this->kid
+            'alg' => $this->alg,
+            'typ' => $this->typ,
+            'kid' => $this->kid
         ];
 
         $bearer = \Firebase\JWT\JWT::encode(
