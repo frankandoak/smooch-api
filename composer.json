@@ -1,6 +1,6 @@
 {
-    "name": "frankandoak/smooch",
-    "description": "Smooch PHP SDK",
+    "name": "frankandoak/smooch-api",
+    "description": "Smooch API Client",
     "require": {
         "firebase/php-jwt": "^3.0",
         "guzzlehttp/guzzle": "6.1.1"

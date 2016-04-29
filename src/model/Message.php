@@ -1,47 +1,56 @@
 <?php
 
-namespace Smooch;
+namespace Smooch\Model;
 
-class Message extends AbstractClient
+class Message
 {
-    /** @var array Contains the payload to be sent to Smooch */
+    /** @var array */
     private $payload = array();
 
-    /** @var int|string Contains the User ID or Smooch ID to whom this message should be sent */
-    private $userId = null;
+    /**
+     * @param array $payload
+     */
+    public function __construct(array $payload)
+    {
+        $this->setPayload($payload);
+    }
 
     /**
-     * Defines the User ID or Smooch ID to whom this message should be sent
+     * Set the message id
      *
-     * @param int|string $userId
+     * @param string $id
      * @return $this
      */
-    public function setUserId($userId)
+    public function setId($id)
     {
-        $this->userId = $userId;
+        $this->payload['_id'] = $id;
         return $this;
     }
 
     /**
-     * Returns the User ID or Smooch ID associated to this message
+     * Returns the message id
      *
-     * @return int|string
+     * @return null|string
      */
-    public function getUserId()
+    public function getId()
     {
-        return $this->userId;
+        return !empty($this->payload['_id']) ? $this->payload['_id'] : null;
     }
 
     /**
-     * {@inheritdoc}
+     * Sets the payload of this message
+     *
+     * @param array $payload
      */
-    public function getCompleteUri()
+    public function setPayload(array $payload)
     {
-        return $this->getBaseUri() . '/appusers/' . $this->getUserId() . '/conversation/messages';
+        $this->payload = $payload;
     }
 
     /**
-     * {@inheritdoc}
+     * Returns the payload associated with this message
+     *
+     * @return array
      */
     public function getPayload()
     {
@@ -63,6 +72,7 @@ class Message extends AbstractClient
 
     /**
      * Get the message content
+     *
      * @return null|string
      */
     public function getText()
@@ -276,19 +286,5 @@ class Message extends AbstractClient
     {
         unset($this->payload['actions'][$index]);
         return $this;
-    }
-
-    /**
-     * Sends the payload as a message to the defined User ID or Smooch ID
-     *
-     * @return string json containing answer from Smooch Rest API
-     * @throws \Exception
-     */
-    public function send()
-    {
-        if (empty($this->getUserId())) {
-            throw new \Exception('Smooch ID or User ID not informed.', 422);
-        }
-        return parent::processRequest("POST");
     }
 }

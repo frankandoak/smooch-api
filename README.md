@@ -1,4 +1,4 @@
-Smooch PHP SDK
+Smooch API Client
 =======
 A library to handle Smooch REST API methods
 conform to [current spec](http://docs.smooch.io/rest/)
@@ -6,22 +6,27 @@ conform to [current spec](http://docs.smooch.io/rest/)
 Installation
 ------------
 
-Use composer to manage your dependencies and download Smooch PHP SDK:
+Use composer to manage your dependencies and download Smooch API Client:
 
 ```bash
-composer require frankandoak/smooch
+composer require frankandoak/smooch-api
 ```
 
 Example
 -------
 ```php
 <?php
-    $smooch = new Smooch\Factory("SECRET", "KEY_ID");
-    $smoochMessage = $smooch->buildMessage();
+       $message = new Smooch\Model\Message([
+           'text' => 'MESSAGE_CONTENT',
+           'role' => 'appMaker'
+       ]);
 
-    $jsonResponse = $smoochMessage->setUserId("USER_OR_SMOOCH_ID")
-        ->setText('MESSAGE_CONTENT')
-        ->setRole('appMaker')
-        ->send();
+       $smoochClient = new Smooch\Client();
+       $smoochClient->setCredentials("SECRET", "KEY_ID");
+
+       $smoochClient
+           ->getAppUser('USER_ID_OR_SMOOCH_ID')
+           ->conversation
+           ->add($message);
 ?>
 ```
